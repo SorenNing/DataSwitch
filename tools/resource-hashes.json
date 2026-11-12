@@ -1,0 +1,16 @@
+{
+  "schema_version": 1,
+  "package": "com.ning.dataswitch",
+  "version": "1.0",
+  "resources": {
+    "DataSwitch.png": "4256b83b657350c5897e1b0a9b044e7fdc7fabfc8ca6c5c4ebcdb59dce406e90",
+    "DataSwitch@2x.png": "1a958f3dcce0a0f1eab5a4d6217ff0f408abbadf908eab833aec852b027fc089",
+    "DataSwitch@3x.png": "12622c71239f64a422b2fbd87a1cabbf0d5970cea7d1a37d59d43b837343a12e",
+    "SettingsIcon.png": "c916f9dcb10af06077406e3b4b1e99017a302f4afcdb97cffae1ad16404777f9",
+    "SettingsIcon@2x.png": "a7c1d9b94b46163373ba0a3ebe49c886b130d678e36c9e207412f03221e95596",
+    "SettingsIcon@3x.png": "01e964525eae199cb7bf15dc80973fa11fe24d2999a35935e45abde430e24634",
+    "PackageIcon.png": "c5a6b9638b47c64a8e3e9db779cdc459f7cf6feaef2e900f9c35d869e87ce7a5",
+    "PackageIcon@256.png": "4d6ba664303dc485fa19d61306151fb1f33d39ff5e3237995a556f8dfbc7519c",
+    "PackageIcon@128.png": "5dc1ccdef1075b504de7e96ee2fb9bb066ff13dc1ed37e64fb94b06afe83f6af"
+  }
+}

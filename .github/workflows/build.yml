@@ -1,0 +1,23 @@
+name: Build standalone DataSwitch
+on:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Xcode toolchain
+        run: xcodebuild -version
+      - name: Read-only input validation
+        run: PYTHONDONTWRITEBYTECODE=1 python3 tools/check_local.py
+      - name: Build and verify standalone module
+        run: bash tools/build-macos.sh
+      - uses: actions/upload-artifact@v4
+        with:
+          name: DataSwitch-1.0
+          path: |
+            dist/com.ning.dataswitch_1.0_iphoneos-arm64e.deb
+            dist/package-validation.json
+          if-no-files-found: error

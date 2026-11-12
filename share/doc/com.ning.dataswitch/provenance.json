@@ -1,0 +1,37 @@
+{
+  "project": "DataSwitch",
+  "package": "com.ning.dataswitch",
+  "version": "1.0",
+  "maintainer": "Ning&Netskao",
+  "original_feature": {
+    "author": "Netskao",
+    "bundle_id": "netskao.ccswitchdatamodule",
+    "reference_deb_sha256": "4c2f36e17adbfe6d78412e629d749ac331d5eaabd003b18286ee37a14a2979e2",
+    "reference_module_sha256": "38ce67fd8d46fa9254003f917f5d15c07f8edea5e416dd7a15639365b7ba5657",
+    "cc18_adaptation_commit": "59ca651ecd10902fb507b25ebea056560d7b792c",
+    "menu_action_addresses": ["0x8aac", "0x8c54"],
+    "selection_read": "getCurrentDataSubscriptionContextSync:",
+    "selection_write": "setActiveUserDataSelection:error:",
+    "context_preference": "userDataPreferred = NSNumber YES",
+    "setter_return_type": "void"
+  },
+  "implementation": {
+    "kind": "new Objective-C source using system ControlCenterUIKit and CoreTelephony",
+    "original_module_binary_included": false,
+    "sim_enable_disable_tool_included": false,
+    "cc18_or_hook_engine_required": false,
+    "system_client": "SBTelephonyManager sharedTelephonyManagerCreatingIfNecessary: coreTelephonyClient",
+    "current_and_preferred_are_distinct": true,
+    "carrier_mapping": "home PLMN, then exact subscription UUID; never editable SIM labels"
+  },
+  "artwork": {
+    "selected_design": "C 环绕单卡",
+    "control_center": "transparent white SIM and two surrounding arrows",
+    "settings_and_sileo": "user-approved blue rounded tile with the same C symbol",
+    "compact_canvas_pt": 46,
+    "expanded_canvas_pt": 32,
+    "settings_sizes_px": [29, 58, 87],
+    "package_sizes_px": [512, 256, 128]
+  },
+  "validation_boundary": "Source and static binary validation are not device runtime verification. A void setter returning no NSError acknowledges only an unrefused request."
+}

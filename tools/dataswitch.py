@@ -7,13 +7,13 @@ import plistlib
 ROOT = Path(__file__).resolve().parents[1]
 PACKAGE = 'com.ning.dataswitch'
 NAME = '数据切换'
-VERSION = '1.0'
+VERSION = '1.0.1'
 BUNDLE_ID = PACKAGE + '.module'
 EXECUTABLE = 'DataSwitch'
-BUNDLE = 'Library/ControlCenter/Bundles/DataSwitch.bundle'
-PROVENANCE = 'usr/share/doc/' + PACKAGE + '/provenance.json'
+BUNDLE = 'var/jb/Library/ControlCenter/Bundles/DataSwitch.bundle'
+PROVENANCE = 'var/jb/usr/share/doc/' + PACKAGE + '/provenance.json'
 PROVENANCE_INPUT = ROOT / 'share/doc' / PACKAGE / 'provenance.json'
-DEB = ROOT / 'dist' / f'{PACKAGE}_{VERSION}_iphoneos-arm64e.deb'
+DEB = ROOT / 'dist' / f'{PACKAGE}_{VERSION}_iphoneos-arm64.deb'
 SOURCES = tuple('src/DataSwitch' + part + '.m' for part in ('Module', 'Controller', 'Service', 'Row'))
 RESOURCE_SIZES = {
     'DataSwitch.png': 50, 'DataSwitch@2x.png': 100, 'DataSwitch@3x.png': 150,
@@ -21,7 +21,7 @@ RESOURCE_SIZES = {
     'PackageIcon.png': 512, 'PackageIcon@256.png': 256, 'PackageIcon@128.png': 128,
 }
 RESOURCE_PATHS = {
-    name: ('usr/share/icons/' + PACKAGE + name.removeprefix('PackageIcon')
+    name: ('var/jb/usr/share/icons/' + PACKAGE + name.removeprefix('PackageIcon')
            if name.startswith('PackageIcon') else BUNDLE + '/' + name)
     for name in RESOURCE_SIZES
 }
@@ -52,7 +52,7 @@ def control_fields(data):
         fields[key] = value.strip()
     expected = {
         'Package': PACKAGE, 'Name': NAME, 'Version': VERSION,
-        'Architecture': 'iphoneos-arm64e',
+        'Architecture': 'iphoneos-arm64',
         'Depends': 'firmware (>= 16.0), firmware (<< 18.0), com.opa334.ccsupport',
         'Section': 'Tweaks', 'Priority': 'optional',
         'Icon': 'file:///' + RESOURCE_PATHS['PackageIcon.png'],

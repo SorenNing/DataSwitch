@@ -1,6 +1,6 @@
-# DataSwitch 1.0 packaging contract
+# DataSwitch 1.0.1 rootless packaging contract
 
-Package `com.ning.dataswitch`, title `数据切换`, version `1.0`, architecture `iphoneos-arm64e` (universal arm64 + arm64e ABI-v2). Bundle ID `com.ning.dataswitch.module`; executable `DataSwitch`; principal class `DataSwitchModule`. Both CFBundleShortVersionString and CFBundleVersion are `1.0`.
+Package `com.ning.dataswitch`, title `数据切换`, version `1.0.1`, architecture `iphoneos-arm64` (universal arm64 + arm64e ABI-v2). Bundle ID `com.ning.dataswitch.module`; executable `DataSwitch`; principal class `DataSwitchModule`. Both CFBundleShortVersionString and CFBundleVersion are `1.0.1`.
 
 The package depends exactly on `firmware (>= 16.0), firmware (<< 18.0), com.opa334.ccsupport`. Author and Maintainer currently say `Ning`; the main agent may add confirmed upstream attribution. The validators require nonempty attribution fields rather than pinning an unconfirmed identity.
 
@@ -10,14 +10,14 @@ Input and installed-file mapping:
 
 | Input | Installed path | Mode |
 | --- | --- | --- |
-| build/DataSwitch | Library/ControlCenter/Bundles/DataSwitch.bundle/DataSwitch | 0755 |
-| Resources/Info.plist | Library/ControlCenter/Bundles/DataSwitch.bundle/Info.plist | 0644 |
-| Resources/DataSwitch.png, @2x, @3x | DataSwitch.bundle, same names | 0644 |
-| Resources/SettingsIcon.png, @2x, @3x | DataSwitch.bundle, same names | 0644 |
-| Resources/PackageIcon.png | usr/share/icons/com.ning.dataswitch.png | 0644 |
-| Resources/PackageIcon@256.png | usr/share/icons/com.ning.dataswitch@256.png | 0644 |
-| Resources/PackageIcon@128.png | usr/share/icons/com.ning.dataswitch@128.png | 0644 |
-| share/doc/com.ning.dataswitch/provenance.json (optional) | usr/share/doc/com.ning.dataswitch/provenance.json | 0644 |
+| build/DataSwitch | var/jb/Library/ControlCenter/Bundles/DataSwitch.bundle/DataSwitch | 0755 |
+| Resources/Info.plist | var/jb/Library/ControlCenter/Bundles/DataSwitch.bundle/Info.plist | 0644 |
+| Resources/DataSwitch.png, @2x, @3x | var/jb/Library/ControlCenter/Bundles/DataSwitch.bundle, same names | 0644 |
+| Resources/SettingsIcon.png, @2x, @3x | var/jb/Library/ControlCenter/Bundles/DataSwitch.bundle, same names | 0644 |
+| Resources/PackageIcon.png | var/jb/usr/share/icons/com.ning.dataswitch.png | 0644 |
+| Resources/PackageIcon@256.png | var/jb/usr/share/icons/com.ning.dataswitch@256.png | 0644 |
+| Resources/PackageIcon@128.png | var/jb/usr/share/icons/com.ning.dataswitch@128.png | 0644 |
+| share/doc/com.ning.dataswitch/provenance.json (optional) | var/jb/usr/share/doc/com.ning.dataswitch/provenance.json | 0644 |
 
 Provenance remains main-agent-authored documentation. If present, it must be a JSON object and is copied byte-for-byte. There are no inherited SIM/helper hashes, provenance-field assertions or helper execution paths. Missing optional provenance does not block a package; the report records its absence.
 
@@ -51,6 +51,6 @@ Only a later explicit manual workflow run uses `macos-latest` and the selected A
 
 `package.py` assembles only whitelisted files. It generates raw USTAR bytes with uid/gid 0, root names, mtime 0, fixed modes and sorted paths, then gzip with mtime 0 and no original filename. `mkdeb.py` writes Debian's three ar members directly in Python. `verify.py` rejects PAX/GNU extensions, links/devices, path traversal, duplicates, extra payload files, maintainer scripts, incorrect ownership/modes, mismatched metadata, bad signatures and changed resource hashes. The native compiler and codesign output may vary with Xcode; deterministic archive headers do not imply cross-Xcode binary reproducibility.
 
-Expected later outputs are `dist/com.ning.dataswitch_1.0_iphoneos-arm64e.deb` and `dist/package-validation.json`, uploaded as `DataSwitch-1.0`. Workflow has only `workflow_dispatch`, `contents: read`, no push/PR/schedule triggers, no release/publish/push actions.
+Expected outputs on a later user-triggered build are `dist/com.ning.dataswitch_1.0.1_iphoneos-arm64.deb` and `dist/package-validation.json`, uploaded as `DataSwitch-1.0.1`. Workflow has only `workflow_dispatch`, `contents: read`, no push/PR/schedule triggers, no release/publish/push actions. Package payload paths are relative `var/jb/...` inside the deb (absolute `/var/jb/...` after installation). The icon control URI is `file:///var/jb/usr/share/icons/com.ning.dataswitch.png`.
 
-Implemented locally on 2026-11-12: Python AST checks; bash -n; read-only metadata/source/workflow/PNG preflight; package dry-run; 19 pure-memory parser checks (including rejecting tampered code-page hashes, wrong-ABI fixups, PNG corruption, automatic workflow triggers and PAX tar). No compiler, dylib generation, real deb construction, repository creation, push, CI run or device runtime test was performed. At handoff, DataSwitchService.m, SettingsIcon/PackageIcon assets, approved hash freeze and optional provenance were still main-agent completion items; the current preflight is authoritative as those files arrive.
+The archived 1.0 RootHide executable's arm64 and arm64e slices had no LC_RPATH and only system dynamic-library loads; this does not prove the separately repackaged 1.0.1 binary works on a normal rootless device. The current workflow builds fresh from source, and `macho.py` explicitly rejects any LC_RPATH, including RootHide search paths. No fresh 1.0.1 compile, deb generation, CI run or device runtime check has been performed as part of this source-only update.

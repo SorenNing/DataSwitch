@@ -137,6 +137,7 @@ def macho(data, module=True):
             require(pos + 8 <= 32 + cmdsize, 'truncated load command')
             cmd, length = struct.unpack_from('<II', thin, pos)
             require(length >= 8 and length % 8 == 0 and pos + length <= 32 + cmdsize, 'invalid load command length')
+            require(cmd not in (0x1c, 0x8000001c), 'DataSwitch must not carry an LC_RPATH (including RootHide paths)')
             if cmd in (0xc, 0xd, 0x80000018, 0x8000001f, 0x20, 0x80000023):
                 require(length >= 24, 'truncated dylib load command')
                 string_pos = struct.unpack_from('<I', thin, pos + 8)[0]

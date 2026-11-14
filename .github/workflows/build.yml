@@ -16,8 +16,8 @@ jobs:
         run: bash tools/build-macos.sh
       - uses: actions/upload-artifact@v4
         with:
-          name: DataSwitch-1.0
+          name: DataSwitch-1.0.1
           path: |
-            dist/com.ning.dataswitch_1.0_iphoneos-arm64e.deb
+            dist/com.ning.dataswitch_1.0.1_iphoneos-arm64.deb
             dist/package-validation.json
           if-no-files-found: error

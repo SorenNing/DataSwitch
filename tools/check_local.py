@@ -41,7 +41,7 @@ def workflow_check(data):
     require(runners == ['runs-on: macos-latest'], 'unexpected runner/job')
     require('        run: bash tools/build-macos.sh' in lines, 'missing explicit Apple build step')
     require(any(line.strip() == 'name: DataSwitch-' + VERSION for line in lines), 'artifact name/version mismatch')
-    require('            dist/' + PACKAGE + '_' + VERSION + '_iphoneos-arm64e.deb' in lines, 'deb artifact path mismatch')
+    require('            dist/' + PACKAGE + '_' + VERSION + '_iphoneos-arm64.deb' in lines, 'deb artifact path mismatch')
     require('            dist/package-validation.json' in lines, 'validation artifact missing')
     forbidden = ('push:', 'pull_request:', 'schedule:', 'workflow_run:', 'repository_dispatch:',
                  'contents: write', 'git push', 'gh repo create', 'softprops/action-gh-release')

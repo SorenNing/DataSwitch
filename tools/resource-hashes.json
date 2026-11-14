@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "package": "com.ning.dataswitch",
-  "version": "1.0",
+  "version": "1.0.1",
   "resources": {
     "DataSwitch.png": "4256b83b657350c5897e1b0a9b044e7fdc7fabfc8ca6c5c4ebcdb59dce406e90",
     "DataSwitch@2x.png": "1a958f3dcce0a0f1eab5a4d6217ff0f408abbadf908eab833aec852b027fc089",

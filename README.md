@@ -1,6 +1,6 @@
 # 数据切换 · DataSwitch
 
-适用于越狱 iOS 16 / 17 的独立控制中心模块。通过 CCSupport 在系统「设置 → 控制中心」添加，包标识 `com.ning.dataswitch`，版本 `1.0`。
+适用于越狱 iOS 16 / 17 的独立控制中心模块。通过 CCSupport 在系统「设置 → 控制中心」添加，包标识 `com.ning.dataswitch`，版本 `1.0.1`。
 
 - 轻点或长按按钮展开「数据切换」卡片。
 - 两条线路显示真实运营商名称以及「使用中 / 未选用」状态，胶囊与名称整组居中。
@@ -28,12 +28,14 @@ python3 tools/package.py --dry-run
 
 ## 构建
 
-唯一工作流为手动 `workflow_dispatch`，使用 `macos-latest` Apple iPhoneOS SDK 编译 arm64 / arm64e、合并并签名。每轮构建需用户授权。
+唯一工作流为手动 `workflow_dispatch`，在仓库 Actions → Build standalone DataSwitch → Run workflow → main 由用户自行触发；也可在配有 Apple iPhoneOS SDK 的 macOS 上运行：
 
 ```sh
 bash tools/build-macos.sh
 ```
 
-最终文件：`dist/com.ning.dataswitch_1.0_iphoneos-arm64e.deb` 与 `dist/package-validation.json`。打包使用 Python raw USTAR + gzip + ar，不调用 macOS ar。验证器核对 arm64e ABI、chained fixups、每页代码签名、三处九项图标以及全部安装路径。
+两种方式均从 `src/` 重新编译 arm64 / arm64e 并合并、临时签名；仅修改旧包安装路径不能证明旧程序可运行。普通无根包的负载均安装在 `/var/jb/`，control 使用 `iphoneos-arm64`。模块仅链接系统库及框架，校验器拒绝任何 `LC_RPATH`（包括 RootHide 专用搜索路径）；仍需真实普通无根设备验证 CCSupport 加载和蜂窝数据切换。本仓库不会因 push 自动构建，也不会发布软件源。
+
+最终文件：`dist/com.ning.dataswitch_1.0.1_iphoneos-arm64.deb` 与 `dist/package-validation.json`。打包使用 Python raw USTAR + gzip + ar，不调用 macOS ar。验证器核对 arm64 + arm64e ABI、chained fixups、每页代码签名、三处九项图标以及全部安装路径。
 
 作者与维护：Ning&Netskao。原功能来源和资源哈希见 `share/doc/com.ning.dataswitch/provenance.json`。
